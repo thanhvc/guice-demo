@@ -6,10 +6,12 @@
  */
 package org.sample.guice;
 
+import org.sample.guice.impl.IPhone6S;
 import org.sample.guice.impl.Note4;
 import org.sample.guice.impl.RewardApp;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.Multibinder;
 
 /**
  * Created by The Eway Company
@@ -21,7 +23,10 @@ public class AppModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(Phone.class).to(Note4.class);
+    Multibinder<Phone> multibinder = Multibinder.newSetBinder(binder(), Phone.class);
+    multibinder.addBinding().to(Note4.class);
+    multibinder.addBinding().to(IPhone6S.class);
+    
     bind(EwayApp.class).to(RewardApp.class);
   }
   
