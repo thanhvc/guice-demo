@@ -11,7 +11,7 @@ import org.sample.guice.impl.Note4;
 import org.sample.guice.impl.RewardApp;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.multibindings.Multibinder;
+import com.google.inject.name.Names;
 
 /**
  * Created by The Eway Company
@@ -23,11 +23,10 @@ public class AppModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    Multibinder<Phone> multibinder = Multibinder.newSetBinder(binder(), Phone.class);
-    multibinder.addBinding().to(Note4.class);
-    multibinder.addBinding().to(IPhone6S.class);
+    bind(Phone.class).annotatedWith(Names.named("note4")).to(Note4.class);
+    bind(Phone.class).annotatedWith(Names.named("iphone6s")).to(IPhone6S.class);
     
-    bind(EwayApp.class).to(RewardApp.class);
+    bind(EwayApp.class).to(RewardApp.class).asEagerSingleton();
   }
   
 }

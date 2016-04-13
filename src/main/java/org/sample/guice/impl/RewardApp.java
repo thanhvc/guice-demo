@@ -6,9 +6,8 @@
  */
 package org.sample.guice.impl;
 
-import java.util.Set;
-
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.sample.guice.EwayApp;
 import org.sample.guice.Phone;
@@ -21,24 +20,23 @@ import org.sample.guice.Phone;
  */
 public class RewardApp implements EwayApp {
 
-
-  @Inject
-  private Set<Phone> myPhones;
+  /**
+   * 
+   */
+  private final Phone myPhone;
   
-  public RewardApp() {
+  @Inject
+  public RewardApp(@Named("iphone6s") Phone phone) {
+    this.myPhone = phone;
   }
   
   @Override
   public void create() {
-    for(Phone phone : myPhones) {
-      System.out.println("RewardApp:: is making on " + phone.toString());
-    }
-    
+    System.out.println("RewardApp:: is making on " + this.myPhone.toString());
   }
 
-  public Set<Phone> getMyPhone() {
-    return myPhones;
+  public Phone getMyPhone() {
+    return myPhone;
   }
-  
 
 }
