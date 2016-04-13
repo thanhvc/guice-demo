@@ -17,8 +17,19 @@ public class Main {
     myApp.create();
 
   }
+  
+  private static void jsonModuleInjection() throws ScriptException {
+    String bindJson = "{\n" +
+            "    \"org.sample.guice.Phone\" : \"org.sample.guice.impl.Note4\",\n" +
+            "    \"org.sample.guice.EwayApp\" : \"org.sample.guice.impl.RewardApp\"\n" +
+            "}";
+    Injector injector = Guice.createInjector(new JSONModule(bindJson));
+    EwayApp myApp = injector.getInstance(EwayApp.class);
+    myApp.create();
+}
 
   public static void main(String[] args) throws ScriptException {
-    createRewardAppForIphones();
+    //createRewardAppForIphones();
+    jsonModuleInjection();
   }
 }
