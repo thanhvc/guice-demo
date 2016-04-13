@@ -2,15 +2,19 @@ package org.sample.guice;
 
 import javax.script.ScriptException;
 
-import org.sample.guice.impl.Note4;
-import org.sample.guice.impl.RewardApp;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 public class Main {
 
   private static void createRewardAppForIphones() {
-    Phone note4 = new Note4();
-    EwayApp app = new RewardApp(note4);
-    app.create();
+//  Phone note4 = new Note4();
+//  EwayApp app = new RewardApp(note4);
+//  app.create();
+    
+    Injector injector = Guice.createInjector(new AppModule());
+    EwayApp myApp = injector.getInstance(EwayApp.class);
+    myApp.create();
 
   }
 
