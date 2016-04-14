@@ -7,6 +7,7 @@
 package org.sample.guice.impl;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.sample.guice.EwayApp;
 import org.sample.guice.Phone;
@@ -25,7 +26,7 @@ public class RewardApp implements EwayApp {
   private final Phone myPhone;
   
   @Inject
-  public RewardApp(Phone phone) {
+  public RewardApp(@Named("iphone6s") Phone phone) {
     this.myPhone = phone;
   }
   
