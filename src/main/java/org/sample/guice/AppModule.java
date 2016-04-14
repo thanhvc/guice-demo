@@ -7,8 +7,8 @@
 package org.sample.guice;
 
 import org.sample.guice.impl.IPhone6S;
-import org.sample.guice.impl.Note4;
 import org.sample.guice.impl.RewardApp;
+import org.sample.guice.provider.PhoneProvider;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
@@ -23,7 +23,8 @@ public class AppModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(Phone.class).annotatedWith(Names.named("note4")).to(Note4.class);
+    //bind(Phone.class).annotatedWith(Names.named("note4")).to(Note4.class);
+    bind(Phone.class).toProvider(PhoneProvider.class);
     bind(Phone.class).annotatedWith(Names.named("iphone6s")).to(IPhone6S.class);
     
     bind(EwayApp.class).to(RewardApp.class).asEagerSingleton();

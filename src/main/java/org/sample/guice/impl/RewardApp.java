@@ -11,6 +11,8 @@ import javax.inject.Inject;
 import org.sample.guice.EwayApp;
 import org.sample.guice.Phone;
 
+import com.google.inject.Provider;
+
 /**
  * Created by The Eway Company
  * Author : Eway
@@ -22,20 +24,20 @@ public class RewardApp implements EwayApp {
   /**
    * 
    */
-  private final Phone myPhone;
+  private final Provider<Phone> myProvider;
   
   @Inject
-  public RewardApp(Phone phone) {
-    this.myPhone = phone;
+  public RewardApp(Provider<Phone> myProvider) {
+    this.myProvider = myProvider;
   }
   
   @Override
   public void create() {
-    System.out.println("RewardApp:: is making on " + this.myPhone.toString());
+    System.out.println("RewardApp:: is making on " + this.myProvider.get().toString());
   }
 
   public Phone getMyPhone() {
-    return myPhone;
+    return this.myProvider.get();
   }
 
 }
