@@ -6,9 +6,13 @@
  */
 package org.sample.guice;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import org.sample.guice.impl.IPhone6S;
+import org.sample.guice.impl.Note4;
 import org.sample.guice.impl.RewardApp;
-import org.sample.guice.provider.PhoneProvider;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
@@ -23,11 +27,24 @@ public class AppModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    //bind(Phone.class).annotatedWith(Names.named("note4")).to(Note4.class);
-    bind(Phone.class).toProvider(PhoneProvider.class);
+    bind(Phone.class).annotatedWith(Names.named("note4")).to(Note4.class);
+    //bind(Phone.class).toProvider(PhoneProvider.class);
     bind(Phone.class).annotatedWith(Names.named("iphone6s")).to(IPhone6S.class);
     
     bind(EwayApp.class).to(RewardApp.class).asEagerSingleton();
+    //
+    Names.bindProperties(binder(), getConfiguration());
   }
   
+  private Properties getConfiguration() {
+    final Properties properties = new Properties();
+    try {
+      final InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("app.properties");
+      properties.load(inputStream);
+    } catch (final IOException e) {
+      e.printStackTrace();
+    }
+    return properties;
+  }
+
 }

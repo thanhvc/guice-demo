@@ -2,8 +2,15 @@ package org.sample.guice.impl;
 
 import org.sample.guice.Phone;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
 public class Note4 implements Phone {
 
+  @Inject
+  @Named("note4.price")
+  private String price;
+  
   @Override
   public void call() {
     System.out.println("note4:: calling....");
@@ -21,6 +28,6 @@ public class Note4 implements Phone {
 
   @Override
   public String toString() {
-    return "Note4";
+    return "Note4:" + price;
   }
 }

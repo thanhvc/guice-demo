@@ -7,11 +7,10 @@
 package org.sample.guice.impl;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.sample.guice.EwayApp;
 import org.sample.guice.Phone;
-
-import com.google.inject.Provider;
 
 /**
  * Created by The Eway Company
@@ -24,20 +23,20 @@ public class RewardApp implements EwayApp {
   /**
    * 
    */
-  private final Provider<Phone> myProvider;
+  private final Phone myPhone;
   
   @Inject
-  public RewardApp(Provider<Phone> myProvider) {
-    this.myProvider = myProvider;
+  public RewardApp(@Named("note4") Phone myPhone) {
+    this.myPhone = myPhone;
   }
   
   @Override
   public void create() {
-    System.out.println("RewardApp:: is making on " + this.myProvider.get().toString());
+    System.out.println("RewardApp:: is making on " + this.myPhone.toString());
   }
 
   public Phone getMyPhone() {
-    return this.myProvider.get();
+    return this.myPhone;
   }
 
 }
